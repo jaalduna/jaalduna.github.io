@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Database, Server, Sparkles } from "lucide-react";
+import { Code2, Database, GraduationCap, Server, Sparkles } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const icons = [Sparkles, Database, Server, Code2];
@@ -81,6 +81,15 @@ export function About() {
                   {tech}
                 </span>
               ))}
+            </div>
+          </div>
+
+          {/* Education */}
+          <div className="text-center mt-10">
+            <p className="text-sm text-gray-500 mb-3">{t.about.educationLabel}</p>
+            <div className="inline-flex items-center gap-2 text-gray-400 text-sm max-w-2xl">
+              <GraduationCap className="w-4 h-4 text-sky-400 shrink-0" />
+              {t.about.education}
             </div>
           </div>
         </motion.div>

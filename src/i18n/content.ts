@@ -28,6 +28,8 @@ export interface Content {
     bio3: string;
     bioAI: string;
     techLabel: string;
+    educationLabel: string;
+    education: string;
     highlights: { title: string; description: string }[];
   };
   contact: {
@@ -108,6 +110,8 @@ export const content: Record<Lang, Content> = {
       bio3:
         "Más allá de los datos, disfruto construir aplicaciones full-stack con React y TypeScript, llevando el mismo rigor de ingeniería al desarrollo frontend.",
       techLabel: "Tecnologías con las que trabajo a diario",
+      educationLabel: "Formación",
+      education: "PhD en Ciencias de la Ingeniería (Electrónica y Comunicaciones) e Ingeniería Civil Electricista — Pontificia Universidad Católica de Chile",
       highlights: [
         {
           title: "IA & Automatización",
@@ -204,6 +208,8 @@ export const content: Record<Lang, Content> = {
       bio3:
         "Beyond data, I enjoy building full-stack applications with React and TypeScript, bringing the same engineering rigor to frontend development.",
       techLabel: "Technologies I work with daily",
+      educationLabel: "Education",
+      education: "PhD in Engineering Sciences (Electronics & Communications) and Electrical Engineering (B.Sc. + M.Sc.) — Pontificia Universidad Católica de Chile",
       highlights: [
         {
           title: "AI & Automation",
