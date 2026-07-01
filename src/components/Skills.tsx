@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { skillCategories } from "../data/skills";
+import { useLanguage } from "../i18n/LanguageContext";
+import type { Lang } from "../i18n/content";
+
+function skillName(name: string | { es: string; en: string }, lang: Lang): string {
+  return typeof name === "string" ? name : name[lang];
+}
 
 function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
   const ref = useRef(null);
@@ -28,6 +34,7 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
 export function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { lang, t } = useLanguage();
 
   return (
     <section id="skills" className="py-32 relative">
@@ -40,12 +47,12 @@ export function Skills() {
         >
           {/* Section header */}
           <div className="text-center mb-16">
-            <p className="text-sky-400 text-sm font-medium mb-3">Skills</p>
+            <p className="text-sky-400 text-sm font-medium mb-3">{t.skills.eyebrow}</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              Technical expertise.
+              {t.skills.heading}
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Specialized in Python and data engineering, with strong full-stack capabilities.
+              {t.skills.intro}
             </p>
           </div>
 
@@ -53,7 +60,7 @@ export function Skills() {
           <div className="grid md:grid-cols-2 gap-12">
             {skillCategories.map((category, catIndex) => (
               <motion.div
-                key={category.name}
+                key={category.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: catIndex * 0.1 }}
@@ -61,13 +68,13 @@ export function Skills() {
               >
                 <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-sky-400" />
-                  {category.name}
+                  {category.name[lang]}
                 </h3>
                 <div className="space-y-5">
                   {category.skills.map((skill, skillIndex) => (
                     <SkillBar
-                      key={skill.name}
-                      name={skill.name}
+                      key={skillName(skill.name, lang)}
+                      name={skillName(skill.name, lang)}
                       level={skill.level}
                       delay={catIndex * 0.1 + skillIndex * 0.05}
                     />
@@ -79,7 +86,7 @@ export function Skills() {
 
           {/* Additional skills */}
           <div className="mt-16 text-center">
-            <p className="text-sm text-gray-500 mb-4">Also experienced with</p>
+            <p className="text-sm text-gray-500 mb-4">{t.skills.alsoExperienced}</p>
             <div className="flex flex-wrap justify-center gap-3">
               {[
                 "NumPy", "SciPy", "Streamlit", "Redis",

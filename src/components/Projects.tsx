@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { projects, categories } from "../data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { cn } from "../lib/utils";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function Projects() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const { lang, t } = useLanguage();
 
   const filteredProjects = activeCategory === "all"
     ? projects
@@ -19,13 +21,12 @@ export function Projects() {
       <div className="relative max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-12">
-          <p className="text-sky-400 text-sm font-medium mb-3">Projects</p>
+          <p className="text-sky-400 text-sm font-medium mb-3">{t.projects.eyebrow}</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-            Things I've built.
+            {t.projects.heading}
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            From data pipelines processing millions of records to full-stack applications,
-            here are some projects I'm proud of.
+            {t.projects.intro}
           </p>
         </div>
 
@@ -42,7 +43,7 @@ export function Projects() {
                   : "bg-surface border border-border text-gray-400 hover:text-white hover:border-sky-500/30"
               )}
             >
-              {category.label}
+              {category.label[lang]}
             </button>
           ))}
         </div>
@@ -65,7 +66,7 @@ export function Projects() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-gray-400 hover:text-sky-400 transition-colors"
           >
-            View more on GitHub
+            {t.projects.viewMore}
             <span className="text-lg">→</span>
           </a>
         </div>

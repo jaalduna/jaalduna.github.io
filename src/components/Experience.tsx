@@ -3,10 +3,12 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, MapPin, Calendar } from "lucide-react";
 import { experiences } from "../data/experience";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { lang, t } = useLanguage();
 
   return (
     <section id="experience" className="py-32 relative">
@@ -22,13 +24,12 @@ export function Experience() {
         >
           {/* Section header */}
           <div className="text-center mb-16">
-            <p className="text-sky-400 text-sm font-medium mb-3">Experience</p>
+            <p className="text-sky-400 text-sm font-medium mb-3">{t.experience.eyebrow}</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              Where I've worked.
+              {t.experience.heading}
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              From industrial engineering to data pipelines,
-              building solutions across diverse industries.
+              {t.experience.intro}
             </p>
           </div>
 
@@ -58,7 +59,7 @@ export function Experience() {
                       {/* Header */}
                       <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                         <div>
-                          <h3 className="text-xl font-semibold text-white">{exp.role}</h3>
+                          <h3 className="text-xl font-semibold text-white">{exp.role[lang]}</h3>
                           <div className="flex items-center gap-2 text-sky-400 font-medium">
                             <Briefcase size={14} />
                             {exp.company}
@@ -67,7 +68,7 @@ export function Experience() {
                         <div className="text-right text-sm text-gray-500">
                           <div className="flex items-center gap-1">
                             <Calendar size={12} />
-                            {exp.period}
+                            {exp.period[lang]}
                           </div>
                           <div className="flex items-center gap-1">
                             <MapPin size={12} />
@@ -77,11 +78,11 @@ export function Experience() {
                       </div>
 
                       {/* Description */}
-                      <p className="text-gray-400 text-sm mb-4">{exp.description}</p>
+                      <p className="text-gray-400 text-sm mb-4">{exp.description[lang]}</p>
 
                       {/* Achievements */}
                       <ul className="space-y-2 mb-4">
-                        {exp.achievements.slice(0, 3).map((achievement, i) => (
+                        {exp.achievements[lang].slice(0, 3).map((achievement, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
                             <span className="mt-1.5 w-1 h-1 rounded-full bg-sky-400 shrink-0" />
                             {achievement}

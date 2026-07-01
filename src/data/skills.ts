@@ -1,51 +1,71 @@
+export interface Localized {
+  es: string;
+  en: string;
+}
+
 export interface Skill {
-  name: string;
+  name: string | Localized;
   level: number; // 0-100
-  category: string;
 }
 
 export interface SkillCategory {
-  name: string;
+  id: string;
+  name: Localized;
   skills: Skill[];
 }
 
 export const skillCategories: SkillCategory[] = [
   {
-    name: "Python & Data",
+    id: "python-data",
+    name: { es: "Python y Datos", en: "Python & Data" },
     skills: [
-      { name: "Python", level: 95, category: "Python & Data" },
-      { name: "Polars", level: 90, category: "Python & Data" },
-      { name: "Pandas", level: 90, category: "Python & Data" },
-      { name: "PySpark", level: 85, category: "Python & Data" },
-      { name: "FastAPI", level: 88, category: "Python & Data" },
+      { name: "Python", level: 95 },
+      { name: "Polars", level: 90 },
+      { name: "Pandas", level: 90 },
+      { name: "PySpark", level: 85 },
+      { name: "FastAPI", level: 88 },
     ],
   },
   {
-    name: "Cloud & DevOps",
+    id: "cloud-devops",
+    name: { es: "Cloud y DevOps", en: "Cloud & DevOps" },
     skills: [
-      { name: "Databricks", level: 90, category: "Cloud & DevOps" },
-      { name: "Azure", level: 85, category: "Cloud & DevOps" },
-      { name: "Docker", level: 82, category: "Cloud & DevOps" },
-      { name: "Git", level: 92, category: "Cloud & DevOps" },
-      { name: "CI/CD", level: 85, category: "Cloud & DevOps" },
+      { name: "Databricks", level: 90 },
+      { name: "Azure", level: 85 },
+      { name: "Docker", level: 82 },
+      { name: "Git", level: 92 },
+      { name: "CI/CD", level: 85 },
     ],
   },
   {
-    name: "Frontend",
+    id: "frontend",
+    name: { es: "Frontend", en: "Frontend" },
     skills: [
-      { name: "React", level: 85, category: "Frontend" },
-      { name: "TypeScript", level: 85, category: "Frontend" },
-      { name: "Tailwind CSS", level: 88, category: "Frontend" },
-      { name: "TanStack Query", level: 82, category: "Frontend" },
+      { name: "React", level: 85 },
+      { name: "TypeScript", level: 85 },
+      { name: "Tailwind CSS", level: 88 },
+      { name: "TanStack Query", level: 82 },
     ],
   },
   {
-    name: "Databases",
+    id: "databases",
+    name: { es: "Bases de Datos", en: "Databases" },
     skills: [
-      { name: "PostgreSQL", level: 88, category: "Databases" },
-      { name: "SQL", level: 92, category: "Databases" },
-      { name: "Delta Lake", level: 80, category: "Databases" },
-      { name: "Unity Catalog", level: 82, category: "Databases" },
+      { name: "PostgreSQL", level: 88 },
+      { name: "SQL", level: 92 },
+      { name: "Delta Lake", level: 80 },
+      { name: "Unity Catalog", level: 82 },
+    ],
+  },
+  {
+    id: "ai-automation",
+    name: { es: "IA y Automatización", en: "AI & Automation" },
+    skills: [
+      { name: "Claude Code", level: 90 },
+      { name: "Prompt Engineering", level: 88 },
+      { name: "Agentic Workflows", level: 85 },
+      { name: "LLM-assisted Code Review", level: 85 },
+      { name: { es: "CI/CD con IA", en: "AI-driven CI/CD" }, level: 88 },
     ],
   },
 ];

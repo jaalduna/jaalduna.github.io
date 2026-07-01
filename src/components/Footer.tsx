@@ -1,22 +1,27 @@
-import { Github, Linkedin, Mail } from "lucide-react";
-
-const socialLinks = [
-  { href: "https://github.com/jaalduna", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com/in/jaalduna", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:joaquin.aldunate@gmail.com", icon: Mail, label: "Email" },
-];
+import { Github, Linkedin, Mail, Download } from "lucide-react";
+import { contact } from "../data/contact";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function Footer() {
+  const { lang, t } = useLanguage();
+  const cvHref = lang === "es" ? "/cv-joaquin-aldunate-es.pdf" : "/cv-joaquin-aldunate-en.pdf";
+
+  const socialLinks = [
+    { href: contact.github, icon: Github, label: "GitHub" },
+    { href: contact.linkedin, icon: Linkedin, label: "LinkedIn" },
+    { href: `mailto:${contact.email}`, icon: Mail, label: "Email" },
+  ];
+
   return (
     <footer className="py-8 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Copyright */}
           <p className="text-sm text-gray-500">
-            {new Date().getFullYear()} Joaquin Aldunate. Built with React + Tailwind.
+            {new Date().getFullYear()} Joaquin Aldunate. {t.footer.builtWith}
           </p>
 
-          {/* Social links */}
+          {/* Social links + CV download */}
           <div className="flex items-center gap-4">
             {socialLinks.map((link) => (
               <a
@@ -30,6 +35,15 @@ export function Footer() {
                 <link.icon size={18} />
               </a>
             ))}
+            <a
+              href={cvHref}
+              download
+              className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-sky-400 transition-colors"
+              aria-label={t.footer.downloadCV}
+            >
+              <Download size={16} />
+              {t.footer.downloadCV}
+            </a>
           </div>
         </div>
       </div>

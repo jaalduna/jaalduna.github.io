@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
+import { contact } from "../data/contact";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const socialLinks = [
-  { href: "https://github.com/jaalduna", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com/in/jaalduna", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:joaquin.aldunate@gmail.com", icon: Mail, label: "Email" },
+  { href: contact.github, icon: Github, label: "GitHub" },
+  { href: contact.linkedin, icon: Linkedin, label: "LinkedIn" },
+  { href: `mailto:${contact.email}`, icon: Mail, label: "Email" },
 ];
 
 export function Hero() {
+  const { lang, t } = useLanguage();
+  const cvHref = lang === "es" ? "/cv-joaquin-aldunate-es.pdf" : "/cv-joaquin-aldunate-en.pdf";
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background gradient */}
@@ -35,7 +40,7 @@ export function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-400"></span>
           </span>
-          Open to new opportunities
+          {t.hero.badge}
         </motion.div>
 
         {/* Main heading */}
@@ -45,7 +50,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6"
         >
-          Hi, I'm{" "}
+          {t.hero.greeting}{" "}
           <span className="text-gradient">Joaquin Aldunate</span>
         </motion.h1>
 
@@ -56,10 +61,10 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg sm:text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8"
         >
-          <span className="text-white font-medium">Senior Data Engineer</span> &{" "}
-          <span className="text-white font-medium">Backend Developer</span>
+          <span className="text-white font-medium">{t.hero.roleOne}</span> &{" "}
+          <span className="text-white font-medium">{t.hero.roleTwo}</span>
           <br className="hidden sm:block" />
-          building high-performance data pipelines and modern web applications.
+          {t.hero.subtitleTail}
         </motion.p>
 
         {/* Stats */}
@@ -70,9 +75,9 @@ export function Hero() {
           className="flex flex-wrap justify-center gap-8 mb-12"
         >
           {[
-            { value: "6+", label: "Years Experience" },
-            { value: "16+", label: "Countries Data" },
-            { value: "385+", label: "Tests Written" },
+            { value: "5+", label: t.hero.statYears },
+            { value: "16+", label: t.hero.statCountries },
+            { value: "385+", label: t.hero.statTests },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</div>
@@ -92,13 +97,21 @@ export function Hero() {
             href="#projects"
             className="w-full sm:w-auto px-8 py-4 bg-sky-500 hover:bg-sky-400 text-white font-medium rounded-xl transition-colors"
           >
-            View Projects
+            {t.hero.ctaProjects}
           </a>
           <a
             href="#contact"
             className="w-full sm:w-auto px-8 py-4 bg-surface hover:bg-surface-hover border border-border text-white font-medium rounded-xl transition-colors"
           >
-            Get in Touch
+            {t.hero.ctaContact}
+          </a>
+          <a
+            href={cvHref}
+            download
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface hover:bg-surface-hover border border-border text-white font-medium rounded-xl transition-colors"
+          >
+            <Download size={18} />
+            {t.hero.ctaDownloadCV}
           </a>
         </motion.div>
 

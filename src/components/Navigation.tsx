@@ -2,24 +2,27 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
 import { cn } from "../lib/utils";
-
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
-];
+import { contact } from "../data/contact";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const socialLinks = [
-  { href: "https://github.com/jaalduna", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com/in/jaalduna", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:joaquin.aldunate@gmail.com", icon: Mail, label: "Email" },
+  { href: contact.github, icon: Github, label: "GitHub" },
+  { href: contact.linkedin, icon: Linkedin, label: "LinkedIn" },
+  { href: `mailto:${contact.email}`, icon: Mail, label: "Email" },
 ];
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { lang, setLang, t } = useLanguage();
+
+  const navLinks = [
+    { href: "#about", label: t.nav.about },
+    { href: "#projects", label: t.nav.projects },
+    { href: "#skills", label: t.nav.skills },
+    { href: "#experience", label: t.nav.experience },
+    { href: "#contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +31,8 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleLang = () => setLang(lang === "es" ? "en" : "es");
 
   return (
     <motion.header
@@ -63,7 +68,7 @@ export function Navigation() {
           ))}
         </div>
 
-        {/* Desktop Social Links */}
+        {/* Desktop Social Links + Language toggle */}
         <div className="hidden md:flex items-center gap-4">
           {socialLinks.map((link) => (
             <a
@@ -77,6 +82,13 @@ export function Navigation() {
               <link.icon size={18} />
             </a>
           ))}
+          <button
+            onClick={toggleLang}
+            className="text-sm font-medium text-gray-400 hover:text-sky-400 transition-colors border border-border rounded-md px-2 py-1"
+            aria-label="Toggle language"
+          >
+            {lang === "es" ? "ES / EN" : "EN / ES"}
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -109,7 +121,7 @@ export function Navigation() {
                   {link.label}
                 </a>
               ))}
-              <div className="flex gap-4 pt-4 border-t border-border">
+              <div className="flex items-center gap-4 pt-4 border-t border-border">
                 {socialLinks.map((link) => (
                   <a
                     key={link.href}
@@ -122,6 +134,13 @@ export function Navigation() {
                     <link.icon size={20} />
                   </a>
                 ))}
+                <button
+                  onClick={toggleLang}
+                  className="text-sm font-medium text-gray-400 hover:text-sky-400 transition-colors border border-border rounded-md px-2 py-1"
+                  aria-label="Toggle language"
+                >
+                  {lang === "es" ? "ES / EN" : "EN / ES"}
+                </button>
               </div>
             </div>
           </motion.div>

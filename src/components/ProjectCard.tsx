@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ExternalLink, Github, Folder } from "lucide-react";
 import type { Project } from "../data/projects";
 import { cn } from "../lib/utils";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface ProjectCardProps {
   project: Project;
@@ -12,15 +13,19 @@ const categoryColors = {
   fullstack: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
   data: "text-sky-400 bg-sky-500/10 border-sky-500/20",
   backend: "text-violet-400 bg-violet-500/10 border-violet-500/20",
-};
-
-const categoryLabels = {
-  fullstack: "Full-Stack",
-  data: "Data Engineering",
-  backend: "Backend",
+  ai: "text-amber-400 bg-amber-500/10 border-amber-500/20",
 };
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
+  const { lang, t } = useLanguage();
+
+  const categoryLabels: Record<Project["category"], string> = {
+    fullstack: t.projects.categoryFullstack,
+    data: t.projects.categoryData,
+    backend: t.projects.categoryBackend,
+    ai: t.projects.categoryAI,
+  };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -72,16 +77,16 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </span>
 
         <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-sky-400 transition-colors">
-          {project.title}
+          {project.title[lang]}
         </h3>
 
         <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-          {project.description}
+          {project.description[lang]}
         </p>
 
         {/* Highlights */}
         <ul className="space-y-1.5 mb-4">
-          {project.highlights.slice(0, 3).map((highlight) => (
+          {project.highlights[lang].slice(0, 3).map((highlight) => (
             <li key={highlight} className="flex items-center gap-2 text-sm text-gray-500">
               <span className="w-1 h-1 rounded-full bg-sky-400" />
               {highlight}

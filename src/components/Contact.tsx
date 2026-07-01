@@ -2,37 +2,40 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, Github, Linkedin, MapPin, Send } from "lucide-react";
-
-const contactLinks = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "joaquin.aldunate@gmail.com",
-    href: "mailto:joaquin.aldunate@gmail.com",
-  },
-  {
-    icon: Github,
-    label: "GitHub",
-    value: "github.com/jaalduna",
-    href: "https://github.com/jaalduna",
-  },
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    value: "linkedin.com/in/jaalduna",
-    href: "https://linkedin.com/in/jaalduna",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Santiago, Chile",
-    href: null,
-  },
-];
+import { contact } from "../data/contact";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const contactLinks = [
+    {
+      icon: Mail,
+      label: t.contact.labelEmail,
+      value: contact.email,
+      href: `mailto:${contact.email}`,
+    },
+    {
+      icon: Github,
+      label: t.contact.labelGithub,
+      value: contact.github.replace("https://", ""),
+      href: contact.github,
+    },
+    {
+      icon: Linkedin,
+      label: t.contact.labelLinkedin,
+      value: contact.linkedin.replace("https://", ""),
+      href: contact.linkedin,
+    },
+    {
+      icon: MapPin,
+      label: t.contact.labelLocation,
+      value: contact.location,
+      href: null,
+    },
+  ];
 
   return (
     <section id="contact" className="py-32 relative">
@@ -45,13 +48,12 @@ export function Contact() {
         >
           {/* Section header */}
           <div className="text-center mb-16">
-            <p className="text-sky-400 text-sm font-medium mb-3">Contact</p>
+            <p className="text-sky-400 text-sm font-medium mb-3">{t.contact.eyebrow}</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              Let's connect.
+              {t.contact.heading}
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              I'm always interested in hearing about new opportunities,
-              collaborations, or just having a chat about data and technology.
+              {t.contact.intro}
             </p>
           </div>
 
@@ -109,18 +111,17 @@ export function Contact() {
                 <div className="p-2 rounded-lg bg-sky-500/20">
                   <Send className="w-5 h-5 text-sky-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-white">Get in touch</h3>
+                <h3 className="text-xl font-semibold text-white">{t.contact.ctaTitle}</h3>
               </div>
               <p className="text-gray-400 mb-6">
-                Whether you have a project in mind, a question about data engineering,
-                or just want to say hi, I'd love to hear from you.
+                {t.contact.ctaText}
               </p>
               <a
-                href="mailto:joaquin.aldunate@gmail.com"
+                href={`mailto:${contact.email}`}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-sky-500 hover:bg-sky-400 text-white font-medium rounded-xl transition-colors"
               >
                 <Mail size={18} />
-                Send me an email
+                {t.contact.ctaButton}
               </a>
             </motion.div>
           </div>

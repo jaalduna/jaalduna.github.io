@@ -1,34 +1,20 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Database, Server, Zap } from "lucide-react";
+import { Code2, Database, Server, Sparkles } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
-const highlights = [
-  {
-    icon: Database,
-    title: "Data Engineering",
-    description: "Building scalable ETL pipelines with Python, Polars, and Databricks for LATAM markets.",
-  },
-  {
-    icon: Server,
-    title: "Backend Development",
-    description: "Creating robust APIs and microservices with FastAPI and modern Python patterns.",
-  },
-  {
-    icon: Code2,
-    title: "Full-Stack Apps",
-    description: "Developing React applications with TypeScript and modern tooling.",
-  },
-  {
-    icon: Zap,
-    title: "Performance",
-    description: "Optimizing data processing and application performance at scale.",
-  },
-];
+const icons = [Sparkles, Database, Server, Code2];
 
 export function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const highlights = t.about.highlights.map((item, index) => ({
+    ...item,
+    icon: icons[index],
+  }));
 
   return (
     <section id="about" className="py-32 relative">
@@ -41,34 +27,22 @@ export function About() {
         >
           {/* Section header */}
           <div className="text-center mb-16">
-            <p className="text-sky-400 text-sm font-medium mb-3">About Me</p>
+            <p className="text-sky-400 text-sm font-medium mb-3">{t.about.eyebrow}</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              Engineer by training, builder by passion.
+              {t.about.heading}
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              I'm a Senior Data Engineer based in Santiago, Chile, with 6+ years of experience
-              transforming complex data challenges into elegant solutions.
+              {t.about.intro}
             </p>
           </div>
 
           {/* Bio */}
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
             <div className="space-y-6">
-              <p className="text-gray-300 leading-relaxed">
-                Currently at <span className="text-white font-medium">Kantar Worldpanel</span>,
-                I architect data pipelines that process consumer panel data across 16+ Latin American countries.
-                My work combines statistical analysis, software engineering, and cloud infrastructure
-                to deliver insights that drive business decisions.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                I believe in writing clean, tested code. With 385+ tests in my latest project
-                and a passion for developer experience, I build systems that are both powerful
-                and maintainable.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                Beyond data, I enjoy building full-stack applications with React and TypeScript,
-                bringing the same engineering rigor to frontend development.
-              </p>
+              <p className="text-gray-300 leading-relaxed font-medium">{t.about.bioAI}</p>
+              <p className="text-gray-300 leading-relaxed">{t.about.bio1}</p>
+              <p className="text-gray-300 leading-relaxed">{t.about.bio2}</p>
+              <p className="text-gray-300 leading-relaxed">{t.about.bio3}</p>
             </div>
 
             {/* Tech stack visual */}
@@ -93,12 +67,12 @@ export function About() {
 
           {/* Tech badges */}
           <div className="text-center">
-            <p className="text-sm text-gray-500 mb-4">Technologies I work with daily</p>
+            <p className="text-sm text-gray-500 mb-4">{t.about.techLabel}</p>
             <div className="flex flex-wrap justify-center gap-2">
               {[
                 "Python", "TypeScript", "React", "FastAPI",
                 "Databricks", "Polars", "PostgreSQL", "Azure",
-                "Docker", "Git", "PySpark", "Unity Catalog"
+                "Docker", "Git", "PySpark", "Unity Catalog", "Claude Code"
               ].map((tech) => (
                 <span
                   key={tech}
